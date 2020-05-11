@@ -1,5 +1,5 @@
 CFLAGS  ?= -Wall -Wno-multichar -Wno-unused-but-set-variable -fPIC -ggdb -O2 $(OPTS) $(INCLUDE) $(DEFINES)
-LDFLAGS ?= -lgomp -lpthread -lssl -lcrypto -ldl -lm -lrt -lstdc++ -L. 
+LDFLAGS ?= -lalac -lgomp -lpthread -lssl -lcrypto -ldl -lm -lrt -lixml -lstdc++ -lsoxr -L. -L/usr/local/lib
 
 OBJ					= bin/x86-64
 EXECUTABLE 			= bin/squeeze2raop-x86-64

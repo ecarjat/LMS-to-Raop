@@ -36,6 +36,9 @@
 #include <ifaddrs.h>
 #include <net/if_dl.h>
 #include <net/if_types.h>
+#include <sys/sysctl.h>
+#include <netinet/if_ether.h>
+#include <net/route.h>
 #endif
 #endif
 #if WIN
@@ -460,7 +463,7 @@ void touch_memory(u8_t *buf, size_t size) {
 }
 #endif
 
-#if LINUX || FREEBSD || SUNOS
+#if LINUX || SUNOS
 int SendARP(in_addr_t src, in_addr_t dst, u32_t *mac, u32_t *size) {
 	int                 s;
 	struct arpreq       areq;
@@ -480,7 +483,7 @@ int SendARP(in_addr_t src, in_addr_t dst, u32_t *mac, u32_t *size) {
 	sin = (struct sockaddr_in *) &areq.arp_ha;
 	sin->sin_family = ARPHRD_ETHER;
 
-#if !SUNOS
+#if !SUNOS 
 	strncpy(areq.arp_dev, "eth0", 15);
 #endif
 
@@ -491,7 +494,7 @@ int SendARP(in_addr_t src, in_addr_t dst, u32_t *mac, u32_t *size) {
 	memcpy(mac, &(areq.arp_ha.sa_data), *size);
 	return 0;
 }
-#elif OSX
+#elif OSX || FREEBSD
 int SendARP(in_addr_t src, in_addr_t dst, u32_t *mac, u32_t *size)
 {
 	int mib[6];
