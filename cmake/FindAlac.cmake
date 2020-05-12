@@ -1,5 +1,6 @@
 ############################################################################
-# FindOpus.txt
+# FindAlac.txt
+# Heavily borrowed from FindOpus.cmake from
 # Copyright (C) 2014  Belledonne Communications, Grenoble France
 #
 ############################################################################
