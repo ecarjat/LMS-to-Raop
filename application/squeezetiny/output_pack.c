@@ -29,7 +29,7 @@
 
 
 /*---------------------------------------------------------------------------*/
-inline s16_t gain(s32_t gain, s16_t sample) {
+static inline s16_t gain(s32_t gain, s16_t sample) {
 	s64_t res = (s64_t)gain * sample;
 	if (res > MAX_VAL16) res = MAX_VAL16;
 	else if (res < -MAX_VAL16) res = -MAX_VAL16;
