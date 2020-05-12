@@ -108,9 +108,11 @@ static char *LIBCRYPTO[] 	= {
 SYMDECL(SSL_read, int, 3, SSL*, s, void*, buf, int, len);
 SYMDECL(SSL_write, int, 3, SSL*, s, const void*, buf, int, len);
 SYMDECL(SSLv23_client_method, const SSL_METHOD*, 0);
+#ifndef FREEBSD
 SYMDECL(TLS_client_method, const SSL_METHOD*, 0);
-SYMDECL(OpenSSL_version_num, unsigned long, 0);
 SYMDECL(SSL_library_init, int, 0);
+#endif
+SYMDECL(OpenSSL_version_num, unsigned long, 0);
 SYMDECL(SSL_CTX_set_cipher_list, int, 2, SSL_CTX *, ctx, const char*, str);
 SYMDECL(SSL_CTX_new, SSL_CTX*, 1, const SSL_METHOD *, meth);
 SYMDECL(SSL_CTX_ctrl, long, 4, SSL_CTX *, ctx, int, cmd, long, larg, void*, parg);
@@ -201,8 +203,10 @@ bool load_ssl_symbols(void) {
 	SYMLOAD(SSLhandle, SSL_write);
 	SYMLOAD(SSLhandle, SSL_pending);
 	SYMLOAD(SSLhandle, SSLv23_client_method);
+#ifndef FREEBSD
 	SYMLOAD(SSLhandle, TLS_client_method);
-	SYMLOAD(SSLhandle, SSL_library_init);
+        SYMLOAD(SSLhandle, SSL_library_init);
+#endif
 	SYMLOAD(SSLhandle, OpenSSL_version_num);
 
 	SYMLOAD(CRYPThandle, RAND_seed);
@@ -227,10 +231,11 @@ bool load_ssl_symbols(void) {
 	SYMLOAD(CRYPThandle, BIO_free);
 	SYMLOAD(CRYPThandle, PEM_read_bio_RSAPrivateKey);
 
+#ifndef FREEBSD
 	// managed deprecated functions
 	if (!SYM(SSLv23_client_method)) SYM(SSLv23_client_method) = SYM(TLS_client_method);
 	if (!SYM(SSL_library_init)) SYM(SSL_library_init) = &lambda;
-
+#endif
 	return true;
 }
 
