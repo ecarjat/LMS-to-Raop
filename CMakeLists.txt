@@ -56,6 +56,15 @@ add_executable(squeeze2raop
 		  ${HTTPFETCHER}/src/http_fetcher.c
 		  ${HTTPFETCHER}/src/http_error_codes.c
           )
+		  
+add_compile_definitions(HAVE_STDINT_H RESAMPLE NDEBUG LINKALL)
+
+add_library(TinySVCmDNS ${TINY}/mdns.c ${TINY}/mdnsd.c)
+target_link_libraries(squeeze2raop TinySVCmDNS )
+
+add_library(mDNS-SD  ${MDNS}/mdnssd-min.c ${MDNS}/mdnssd.c)
+target_link_libraries(squeeze2raop mDNS-SD  )
+
 
 #Add threads
 find_package (Threads REQUIRED)
@@ -97,17 +106,33 @@ find_package(Md REQUIRED)
 include_directories(${MD_INCLUDE_DIRS})
 target_link_libraries(squeeze2raop ${MD_LIBRARIES})
 
-add_library(TinySVCmDNS ${TINY}/mdns.c ${TINY}/mdnsd.c)
-target_link_libraries(squeeze2raop TinySVCmDNS )
+#Add soxr
+find_package(Soxr REQUIRED)
+include_directories(${SOXR_INCLUDE_DIRS})
+target_link_libraries(squeeze2raop ${SOXR_LIBRARIES})
 
-add_library(mDNS-SD  ${MDNS}/mdnssd-min.c ${MDNS}/mdnssd.c)
-target_link_libraries(squeeze2raop mDNS-SD  )
+#Add FLAC
+find_package(Flac REQUIRED)
+target_include_directories(squeeze2raop PUBLIC ${FLAC_INCLUDE_DIRS})
+target_link_libraries(squeeze2raop ${FLAC_LIBRARIES})
+
+#Add Mad
+find_package(Mad REQUIRED)
+include_directories(${MAD_INCLUDE_DIRS})
+target_link_libraries(squeeze2raop ${MAD_LIBRARIES})
+
+#Add Faad
+find_package(Faad REQUIRED)
+include_directories(${FAAD_INCLUDE_DIRS})
+target_link_libraries(squeeze2raop ${FAAD_LIBRARIES})
+
 
 add_library(curve25519 STATIC IMPORTED)
 set_target_properties(curve25519 PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/${CURVE25519}/source/build64/libcurve25519.a)
 target_link_libraries(squeeze2raop curve25519)
-target_include_directories (squeeze2raop PUBLIC "${CURVE25519}/include")
 
+
+target_include_directories (squeeze2raop PUBLIC "${CURVE25519}/include")
 target_include_directories (squeeze2raop PUBLIC "${VALGRIND}/include")
 target_include_directories (squeeze2raop PUBLIC "${VALGRIND}/memcheck")
 target_include_directories (squeeze2raop PUBLIC "${SQUEEZE2RAOP}/inc")
