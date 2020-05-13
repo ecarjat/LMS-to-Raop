@@ -1,5 +1,6 @@
-############################################################################
-# FindOpus.txt
+#Mad###########################################################################
+# FindMad.txt
+# Heavily borrowed from FindOpus.cmake from
 # Copyright (C) 2014  Belledonne Communications, Grenoble France
 #
 ############################################################################
@@ -22,34 +23,23 @@
 #
 # - Find the opus include file and library
 #
-#  OPUS_FOUND - system has opus
-#  OPUS_INCLUDE_DIRS - the opus include directory
-#  OPUS_LIBRARIES - The libraries needed to use opus
+#  MAC_FOUND - system has opus
+#  MAC_INCLUDE_DIRS - the opus include directory
+#  MAC_LIBRARIES - The libraries needed to use opus
 
-find_path(OPUS_INCLUDE_DIRS opus/opusfile.h)
+find_path(MAD_INCLUDE_DIRS 
+	NAMES mad.h
+	)
 
-if(OPUS_INCLUDE_DIRS)
-	set(HAVE_OPUS_OPUS_H 1)
+if(MAD_INCLUDE_DIRS)
+	set(MAC_FOUND 1)
 endif()
 
-find_library(OPUS_LIBRARIES NAMES opus)
-
-
-if(OPUS_LIBRARIES)
-	find_library(LIBM NAMES m)
-	if(LIBM)
-		list(APPEND OPUS_LIBRARIES ${LIBM})
-	endif()
-	find_library(OPUSFILE_LIBRARIES NAMES opusfile)
-	if(OPUSFILE_LIBRARIES)
-		list(APPEND OPUS_LIBRARIES ${OPUSFILE_LIBRARIES})
-	endif()
-endif()
+find_library(MAD_LIBRARIES mad)
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Opus
+find_package_handle_standard_args(Mad
 	DEFAULT_MSG
-	OPUS_INCLUDE_DIRS OPUS_LIBRARIES HAVE_OPUS_OPUS_H
+	MAD_INCLUDE_DIRS  MAD_LIBRARIES 
 )
-set( OPUS_INCLUDE_DIRS ${OPUS_INCLUDE_DIRS} ${OPUS_INCLUDE_DIRS}/opus )
-mark_as_advanced(OPUS_INCLUDE_DIRS OPUS_LIBRARIES HAVE_OPUS_OPUS_H)
+mark_as_advanced(MAD_INCLUDE_DIRS MAD_LIBRARIES)

@@ -1,5 +1,6 @@
 ############################################################################
-# FindOpus.txt
+# FindSoxr.txt
+# Heavily borrowed from FindOpus.cmake from
 # Copyright (C) 2014  Belledonne Communications, Grenoble France
 #
 ############################################################################
@@ -22,34 +23,23 @@
 #
 # - Find the opus include file and library
 #
-#  OPUS_FOUND - system has opus
-#  OPUS_INCLUDE_DIRS - the opus include directory
-#  OPUS_LIBRARIES - The libraries needed to use opus
+#  SOXR_FOUND - system has opus
+#  SOXR_INCLUDE_DIRS - the opus include directory
+#  SOXR_LIBRARIES - The libraries needed to use opus
 
-find_path(OPUS_INCLUDE_DIRS opus/opusfile.h)
+find_path(SOXR_INCLUDE_DIRS 
+	NAMES soxr.h
+	)
 
-if(OPUS_INCLUDE_DIRS)
-	set(HAVE_OPUS_OPUS_H 1)
+if(SOXR_INCLUDE_DIRS)
+	set(SOXR_FOUND 1)
 endif()
 
-find_library(OPUS_LIBRARIES NAMES opus)
-
-
-if(OPUS_LIBRARIES)
-	find_library(LIBM NAMES m)
-	if(LIBM)
-		list(APPEND OPUS_LIBRARIES ${LIBM})
-	endif()
-	find_library(OPUSFILE_LIBRARIES NAMES opusfile)
-	if(OPUSFILE_LIBRARIES)
-		list(APPEND OPUS_LIBRARIES ${OPUSFILE_LIBRARIES})
-	endif()
-endif()
+find_library(SOXR_LIBRARIES soxr)
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Opus
+find_package_handle_standard_args(Soxr
 	DEFAULT_MSG
-	OPUS_INCLUDE_DIRS OPUS_LIBRARIES HAVE_OPUS_OPUS_H
+	SOXR_INCLUDE_DIRS  SOXR_LIBRARIES 
 )
-set( OPUS_INCLUDE_DIRS ${OPUS_INCLUDE_DIRS} ${OPUS_INCLUDE_DIRS}/opus )
-mark_as_advanced(OPUS_INCLUDE_DIRS OPUS_LIBRARIES HAVE_OPUS_OPUS_H)
+mark_as_advanced(SOXR_INCLUDE_DIRS SOXR_LIBRARIES)
