@@ -127,8 +127,18 @@ include_directories(${FAAD_INCLUDE_DIRS})
 target_link_libraries(squeeze2raop ${FAAD_LIBRARIES})
 
 
-add_library(curve25519 STATIC IMPORTED)
-set_target_properties(curve25519 PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/${CURVE25519}/source/build64/libcurve25519.a)
+#add_library(curve25519 STATIC IMPORTED)
+#set_target_properties(curve25519 PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/${CURVE25519}/source/build64/libcurve25519.a)
+add_library(curve25519 	${CURVE25519}/source/curve25519_mehdi.c 
+						${CURVE25519}/source/curve25519_order.c
+						${CURVE25519}/source/curve25519_utils.c
+						${CURVE25519}/source/curve25519_dh.c
+						${CURVE25519}/source/ed25519_sign.c
+						${CURVE25519}/source/ed25519_verify.c
+						${CURVE25519}/source/sha512.c
+						${CURVE25519}/source/custom_blind.c
+)
+target_include_directories (curve25519 PUBLIC "${CURVE25519}/include")
 target_link_libraries(squeeze2raop curve25519)
 
 
