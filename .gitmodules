@@ -1,0 +1,12 @@
+[submodule "RAOP-Player"]
+	path = RAOP-Player
+	url = https://github.com/ecarjat/RAOP-Player.git
+[submodule "HTTP-Fetcher"]
+	path = HTTP-Fetcher
+	url = https://github.com/philippe44/HTTP-Fetcher.git
+[submodule "TinySVCmDNS"]
+	path = TinySVCmDNS
+	url = https://github.com/philippe44/TinySVCmDNS.git
+[submodule "mDNS-SD"]
+	path = mDNS-SD
+	url = https://github.com/philippe44/mDNS-SD.git
