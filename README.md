@@ -12,9 +12,9 @@ Credit for the software should be given to https://github.com/philippe44 and the
 Support thread of the original software is here: http://forums.slimdevices.com/showthread.php?105198-ANNOUNCE-AirPlay-Bridge-integrate-AirPlay-devices-with-LMS-(squeeze2raop)&p=846204&viewfull=1#post846204
 
 
-##Compilation and instalation
+## Compilation and instalation
 
-###Create a buildhost
+### Create a buildhost
 Create a jail for the buildhost. Alternatively this can be done on the jail used for LMS.
 Change `NAME` below to your buildhost name
 
@@ -30,7 +30,7 @@ iocage create \
     dhcp=on
 ```
 
-###Create a pool for the artefacts
+### Create a pool for the artefacts
 Change `POOL` below to a pool name
 Change `ART` to the volume you want to create 
 ```
@@ -71,7 +71,7 @@ cmake ..
 make
 ```
 
-###Copy LMS-to-RAOP 
+### Copy LMS-to-RAOP 
 Copy the software to the artefact volume
 From there it needs to be copied to the LMS jail
 
