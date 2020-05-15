@@ -16,7 +16,13 @@ set(VALGRIND ${RAOPPLAYER}/vendor/valgrind)
 set(HTTPFETCHER HTTP-Fetcher)
 set(CURVE25519 ${RAOPPLAYER}/vendor/curve25519)
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
 
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-multichar -Wno-unused-but-set-variable -fPIC")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 
 # add the executable
